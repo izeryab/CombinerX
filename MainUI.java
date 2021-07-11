@@ -10,18 +10,15 @@ import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 public class MainUI extends Application{
 
 	private ArrayList<Integer> numbers=new ArrayList<>();
-	private int maxAllow=1;
 	@Override
 	public void start(Stage stage) throws Exception {
 		VBox tp =new VBox();
@@ -142,6 +139,8 @@ public class MainUI extends Application{
 	picksLABELS.setAlignment(Pos.CENTER);
 		tp.getChildren().add(picksLABELS);
 		HBox picks=new HBox();
+		HBox picksSize=new HBox();
+		
 		TextArea textAreap1=new TextArea();
 		textAreap1.setScaleShape(true);
 		textAreap1.setWrapText(true);
@@ -162,6 +161,27 @@ public class MainUI extends Application{
 		picks.setSpacing(10);
 		tp.getChildren().add(picks);
 
+		
+		Label textAreap1L=new Label();
+		textAreap1L.setFont(Font.font("Arial", FontWeight.SEMI_BOLD, 20));
+		picksSize.getChildren().add(textAreap1L);
+		Label textAreap2L=new Label();
+		picksSize.getChildren().add(textAreap2L);
+		Label textAreap3L=new Label();
+		
+textAreap1L.setTextFill(Color.WHITE);
+textAreap2L.setTextFill(Color.WHITE);
+
+textAreap3L.setTextFill(Color.WHITE);
+
+textAreap2L.setFont(Font.font("Arial", FontWeight.SEMI_BOLD, 20));
+		textAreap3L.setFont(Font.font("Arial", FontWeight.SEMI_BOLD, 20));
+		
+		picksSize.getChildren().add(textAreap3L);
+		picksSize.setSpacing(20);
+		picksSize.setAlignment(Pos.CENTER);
+		tp.getChildren().add(picksSize);
+
 		combine.setOnAction(e->{
 			int[] numberx=new int[numbers.size()];
 			for (int i = 0; i < numberx.length; i++) {
@@ -171,10 +191,11 @@ public class MainUI extends Application{
 			String s3="";
 			String s4="";
 			if(!Double.isSelected()&&!Triple.isSelected()&&!Multiple.isSelected()) {
-				maxAllow=0;
 				s2=GetAllPermutations.GET(2,numberx,1);
 				s3=GetAllPermutations.GET(3,numberx,1);
+			
 				s4=GetAllPermutations.GET(4,numberx,1);
+			
 			}
 			else if(Double.isSelected()) {
 				s2=GetAllPermutations.GET(2,numberx,2);
@@ -209,7 +230,10 @@ public class MainUI extends Application{
 			textAreap1.setText(s2);
 			textAreap2.setText(s3);
 			textAreap3.setText(s4);
-			
+			textAreap1L.setText(s2.split("\n").length+" combinations.");
+			textAreap2L.setText(s3.split("\n").length+" combinations.");
+			textAreap3L.setText(s4.split("\n").length+" combinations.");
+
 			for (CheckBox checkBox : boxes) {
 				checkBox.setSelected(false);
 			}
